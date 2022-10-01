@@ -21,6 +21,9 @@ class Village
     #[ORM\OneToMany(mappedBy: 'village', targetEntity: Card::class, cascade: ["persist"])]
     private Collection $cards;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->cards = new ArrayCollection();
@@ -44,17 +47,17 @@ class Village
     }
 
     /**
-     * @return Village<int, Card>
+     * @return Collection<int, Card>
      */
-    public function getCards(): Village
+    public function getCards(): Collection
     {
-        return $this->cartes;
+        return $this->cards;
     }
 
     public function addCard(Card $carte): self
     {
-        if (!$this->cartes->contains($carte)) {
-            $this->cartes->add($carte);
+        if (!$this->cards->contains($carte)) {
+            $this->cards->add($carte);
             $carte->setVillage($this);
         }
 
@@ -63,12 +66,24 @@ class Village
 
     public function removeCard(Card $carte): self
     {
-        if ($this->cartes->removeElement($carte)) {
+        if ($this->cards->removeElement($carte)) {
             // set the owning side to null (unless already changed)
             if ($carte->getVillage() === $this) {
                 $carte->setVillage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

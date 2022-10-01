@@ -20,10 +20,10 @@ class Card
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $serie = null;
+    private ?int $series = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $specie = null;
+    private ?string $species = null;
 
     #[ORM\ManyToOne(inversedBy: 'cartes')]
     private ?Village $village = null;
@@ -59,26 +59,26 @@ class Card
         return $this;
     }
 
-    public function getSerie(): ?int
+    public function getSeries(): ?int
     {
-        return $this->serie;
+        return $this->series;
     }
 
-    public function setSerie(int $serie): self
+    public function setSeries(int $series): self
     {
-        $this->serie = $serie;
+        $this->series = $series;
 
         return $this;
     }
 
-    public function getSpecie(): ?string
+    public function getSpecies(): ?string
     {
-        return $this->specie;
+        return $this->species;
     }
 
-    public function setSpecie(string $specie): self
+    public function setSpecies(string $species): self
     {
-        $this->specie = $specie;
+        $this->species = $species;
 
         return $this;
     }
