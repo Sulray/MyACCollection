@@ -29,6 +29,10 @@ class Card
     private ?Village $village = null;
 
 
+    public function __toString() {
+        return $this->name . " (" . $this->species . ")";
+    }
+
     public function getId(): ?int
     {
         return $this->id;
