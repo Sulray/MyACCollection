@@ -15,9 +15,6 @@ class Village
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
-
     #[ORM\OneToMany(mappedBy: 'village', targetEntity: Card::class, cascade: ["persist"])]
     private Collection $cards;
 
@@ -36,18 +33,6 @@ class Village
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
     }
 
     /**

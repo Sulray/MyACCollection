@@ -11,11 +11,25 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @method Village|null find($id, $lockMode = null, $lockVersion = null)
  * @method Village|null findOneBy(array $criteria, array $orderBy = null)
- * @method Village[]    findAll()
+ #* @method Village[]    findAll()
  * @method Village[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class VillageRepository extends ServiceEntityRepository
 {
+    /**
+     * {@inheritDoc}
+     * @return Village[]
+     * @see \Doctrine\ORM\EntityRepository::findAll()
+     */
+    public function findAll(): array
+    {
+        //  findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+        return $this->findBy(
+            array(),
+            array('name' => 'ASC')
+        );
+    }
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Village::class);
