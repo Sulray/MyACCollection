@@ -21,6 +21,9 @@ class Village
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\ManyToOne(inversedBy: 'villages')]
+    private ?Member $member = null;
+
     public function __construct()
     {
         $this->cards = new ArrayCollection();
@@ -73,6 +76,18 @@ class Village
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Member $member): self
+    {
+        $this->member = $member;
 
         return $this;
     }
