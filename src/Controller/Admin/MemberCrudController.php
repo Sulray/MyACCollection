@@ -2,18 +2,18 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Village;
+use App\Entity\Member;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class VillageCrudController extends AbstractCrudController
+class MemberCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Village::class;
+        return Member::class;
     }
 
 
@@ -22,8 +22,8 @@ class VillageCrudController extends AbstractCrudController
         yield IdField::new('id')
             ->hideOnForm();
         yield TextField::new('name');
-        #yield TextEditorField::new('description');
-        yield AssociationField::new('cards')
+        yield TextEditorField::new('description');
+        yield AssociationField::new('villages')
             ->autocomplete()
             ->setFormTypeOption('by_reference', false);
     }

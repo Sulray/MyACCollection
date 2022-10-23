@@ -22,7 +22,7 @@ class Card
     #[ORM\Column(length: 255)]
     private ?string $species = null;
 
-    #[ORM\ManyToOne(inversedBy: 'cartes')]
+    #[ORM\ManyToOne(inversedBy: 'cards')]
     private ?Village $village = null;
 
 

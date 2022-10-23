@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Card;
+use App\Entity\Member;
 use App\Repository\CardRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -25,13 +26,21 @@ class AppFixtures extends Fixture
      */
     private static function villagesDataGenerator()
     {
-        yield ["Village of Martin"];
-        yield ["Village of Sarah"];
-        yield ["Village of Filip"];
-        yield ["Village of Arthur"];
-        yield ["Village of Becky"];
+        yield ["Village of Martin","Martin"];
+        yield ["Village of Sarah","Sarah"];
+        yield ["Village of Filip","Filip"];
+        yield ["Village of Arthur","Arthur"];
+        yield ["Village of Becky","Becky"];
     }
 
+    private static function membersDataGenerator()
+    {
+        yield ["Martin"];
+        yield ["Sarah"];
+        yield ["Filip"];
+        yield ["Arthur"];
+        yield ["Becky"];
+    }
 
     private static function cardsDataGenerator()
     {
@@ -50,12 +59,22 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $memberRepo = $manager->getRepository(Member::class);
         $villageRepo = $manager->getRepository(Village::class);
 
-        foreach (self::villagesDataGenerator() as [$name] ) {
+        foreach (self::villagesDataGenerator() as [$name,$memberName] ) {
+            $member = $memberRepo->findOneBy(['name' => $memberName]);
             $village = new Village();
             $village->setName($name);
+            $village->SetMember($member);
             $manager->persist($village);
+        }
+        $manager->flush();
+
+        foreach (self::membersDataGenerator() as [$name] ) {
+            $member = new Member();
+            $member->setName($name);
+            $manager->persist($member);
         }
         $manager->flush();
 

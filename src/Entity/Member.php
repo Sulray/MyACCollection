@@ -21,12 +21,16 @@ class Member
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'member', targetEntity: village::class)]
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Village::class, cascade: ["persist"])]
     private Collection $villages;
 
     public function __construct()
     {
         $this->villages = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return $this->name . " (" . $this->id . ")";
     }
 
     public function getId(): ?int
