@@ -10,6 +10,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VillageController extends AbstractController
 {
+    /**
+     * @Route("/", name = "home", methods="GET")
+     */
+    public function indexAction()
+    {
+        return $this->render('index.html.twig',
+            [ 'welcome' => "Have a nice use of the village list" ]
+        );
+    }
+
     #[Route('/village', name: 'app_village')]
     public function index(): Response
     {

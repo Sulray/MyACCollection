@@ -62,21 +62,26 @@ class AppFixtures extends Fixture
         $memberRepo = $manager->getRepository(Member::class);
         $villageRepo = $manager->getRepository(Village::class);
 
-        foreach (self::villagesDataGenerator() as [$name,$memberName] ) {
-            $member = $memberRepo->findOneBy(['name' => $memberName]);
-            $village = new Village();
-            $village->setName($name);
-            $village->SetMember($member);
-            $manager->persist($village);
-        }
-        $manager->flush();
-
         foreach (self::membersDataGenerator() as [$name] ) {
             $member = new Member();
             $member->setName($name);
             $manager->persist($member);
         }
         $manager->flush();
+
+
+        foreach (self::villagesDataGenerator() as [$name,$memberName] ) {
+            $member = $memberRepo->findOneBy(['name' => $memberName]);
+            print($memberName);
+            print($member);
+            $village = new Village();
+            $village->setName($name);
+            $member->addVillage($village);
+            $manager->persist($village);
+        }
+        $manager->flush();
+
+
 
         foreach (self::cardsDataGenerator() as [$villageName,$name, $series, $species] ) {
             $village = $villageRepo->findOneBy(['name' => $villageName]);
