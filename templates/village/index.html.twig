@@ -5,10 +5,24 @@
 {% block body %}
     <h1>Village index</h1>
 
-    <ul>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Village</th>
+        </tr>
+        </thead>
+        <tbody>
+
         {% for village in villages %}
-            <li>{{ village.name }}</li>
+        <tr>
+            <td>{{ village.id }}</td>
+            <td>{{ village.name }}</td>
+        </tr>
         {% endfor %} {# villages #}
-    </ul>
+
+        </tbody>
+    </table>
+
 
 {% endblock %} {# body #}
