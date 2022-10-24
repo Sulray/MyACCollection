@@ -29,41 +29,21 @@ class VillageController extends AbstractController
     }
 
     /**
-     * Lists all village entities
+     * Lists all village entities.
      *
      * @Route("/list", name = "village_list", methods="GET")
-     * @Route("/index", name="village_index", methods="GET")
-     */
-    public function listVillages(ManagerRegistry $doctrine)
-    {
-        $htmlpage = '<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>villages list!</title>
-    </head>
-    <body>
-        <h1>villages list</h1>
-        <p>Here are all your villages:</p>
-        <ul>';
+     * @Route("/index", name = "village_index", methods="GET")
 
+     */
+    public function listVillage(ManagerRegistry $doctrine): Response
+    {
         $entityManager= $doctrine->getManager();
         $villages = $entityManager->getRepository(Village::class)->findAll();
-        foreach($villages as $village) {
-            $url = $this->generateUrl(
-                'village_show',
-                ['id' => $village->getId()]);
-            $htmlpage .= '<li>
-            <a href='.$url.'>'.$village->getName().'</a></li>';
-        }
-        $htmlpage .= '</ul>';
 
-        $htmlpage .= '</body></html>';
+        dump($villages);
 
-        return new Response(
-            $htmlpage,
-            Response::HTTP_OK,
-            array('content-type' => 'text/html')
+        return $this->render('village/index.html.twig',
+            [ 'villages' => $villages ]
         );
     }
 
