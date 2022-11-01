@@ -26,34 +26,13 @@ class CardController extends AbstractController
      */
     public function listCards(ManagerRegistry $doctrine)
     {
-        $htmlpage = '<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>cards list!</title>
-    </head>
-    <body>
-        <h1>cards list</h1>
-        <p>Here are all your cards:</p>
-        <ul>';
-
         $entityManager= $doctrine->getManager();
         $cards = $entityManager->getRepository(Card::class)->findAll();
-        foreach($cards as $card) {
-            $url = $this->generateUrl(
-                'card_show',
-                ['id' => $card->getId()]);
-            $htmlpage .= '<li>
-            <a href='.$url.'>'.$card->getName().'</a></li>';
-        }
-        $htmlpage .= '</ul>';
 
-        $htmlpage .= '</body></html>';
+        dump($cards);
 
-        return new Response(
-            $htmlpage,
-            Response::HTTP_OK,
-            array('content-type' => 'text/html')
+        return $this->render('card/index.html.twig',
+            [ 'cards' => $cards ]
         );
     }
 

@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
 class VillageController extends AbstractController
 {
     /**
@@ -55,7 +57,7 @@ class VillageController extends AbstractController
      *
      * @param Integer $id
      */
-    public function show(ManagerRegistry $doctrine, $id)
+    public function showVillage(ManagerRegistry $doctrine, $id)
     {
         $villageRepo = $doctrine->getRepository(Village::class);
         $village = $villageRepo->find($id);
@@ -64,11 +66,10 @@ class VillageController extends AbstractController
             throw $this->createNotFoundException('The village does not exist');
         }
 
-        $res = '<p>'.$village->getName()." (".$village->getid().")";
+        return $this->render('village/show.html.twig',
+            [ 'village' => $village ]
+        );
 
-        $res .= '</p><a href="' . $this->generateUrl('village_index') . '">Back</a>';
-
-        return new Response('<html><body>'. $res . '</body></html>');
     }
 
 }

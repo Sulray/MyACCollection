@@ -26,34 +26,13 @@ class MemberController extends AbstractController
      */
     public function listMembers(ManagerRegistry $doctrine)
     {
-        $htmlpage = '<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>members list!</title>
-    </head>
-    <body>
-        <h1>members list</h1>
-        <p>Here are all your members:</p>
-        <ul>';
-
         $entityManager= $doctrine->getManager();
         $members = $entityManager->getRepository(Member::class)->findAll();
-        foreach($members as $member) {
-            $url = $this->generateUrl(
-                'member_show',
-                ['id' => $member->getId()]);
-            $htmlpage .= '<li>
-            <a href='.$url.'>'.$member->getName().'</a></li>';
-        }
-        $htmlpage .= '</ul>';
 
-        $htmlpage .= '</body></html>';
+        dump($members);
 
-        return new Response(
-            $htmlpage,
-            Response::HTTP_OK,
-            array('content-type' => 'text/html')
+        return $this->render('member/index.html.twig',
+            [ 'members' => $members ]
         );
     }
 
