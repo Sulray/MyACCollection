@@ -17,8 +17,7 @@
         {% for card in cards %}
             <tr>
                 <td>{{ card.id }}</td>
-                <td>{{ card.name }}</td>
-                {# <td><a href="{{  path('card_show',{'id':card.id}) }}">{{ card.name }}</a> </td> #}
+                <td><a href="{{  path('card_show',{'id':card.id}) }}">{{ card.name }}</a> </td>
             </tr>
         {% endfor %} {# cards #}
 

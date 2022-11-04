@@ -53,11 +53,9 @@ class MemberController extends AbstractController
             throw $this->createNotFoundException('The member does not exist');
         }
 
-        $res = '<p>'.$member->getName()." (".$member->getid().")";
-
-        $res .= '</p><a href="' . $this->generateUrl('member_index') . '">Back</a>';
-
-        return new Response('<html><body>'. $res . '</body></html>');
+        return $this->render('member/show.html.twig',
+            [ 'member' => $member ]
+        );
     }
 
 }

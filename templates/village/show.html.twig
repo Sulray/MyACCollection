@@ -3,23 +3,27 @@
 {% block title %}Welcome!{% endblock %}
 
 {% block body %}
-    <h1>Village</h1>
+    <h1>{{ village.name }}</h1>
 
     {% dump village %}
 
+    <h2> <a href="{{  path('member_show',{'id':village.member.id}) }}"> {{ village.member.name }} </a> </h2>
+
     <table class="table">
-        <tbody>
+        <thead>
         <tr>
             <th>Id</th>
-            <th>Village</th>
+            <th>Card</th>
         </tr>
-        <tr>
-            <td>{{ village.id }}</td>
-            <td>{{ village.name }}</td>
+        </thead>
+        <tbody>
 
-        </tr>
-
-
+        {% for card in village.cards %}
+            <tr>
+                <td>{{ card.id }}</td>
+                <td><a href="{{  path('card_show',{'id':card.id}) }}">{{ card.name }}</a> </td>
+            </tr>
+        {% endfor %} {# cards #}
 
         </tbody>
     </table>

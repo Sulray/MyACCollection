@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block body %}
+    <h1>{{ member.name }}</h1>
+
+    {% dump member %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Village</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for village in member.villages %}
+            <tr>
+                <td>{{ village.id }}</td>
+                <td><a href="{{  path('village_show',{'id':village.id}) }}">{{ village.name }}</a> </td>
+            </tr>
+        {% endfor %} {# villages #}
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('member_index') }}">back to list</a>
+
+{% endblock %}

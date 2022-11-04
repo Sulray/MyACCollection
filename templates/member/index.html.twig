@@ -17,8 +17,7 @@
         {% for member in members %}
             <tr>
                 <td>{{ member.id }}</td>
-                <td>{{ member.name }}</td>
-                {# <td><a href="{{  path('member_show',{'id':member.id}) }}">{{ member.name }}</a> </td> #}
+                <td><a href="{{  path('member_show',{'id':member.id}) }}">{{ member.name }}</a> </td>
             </tr>
         {% endfor %} {# members #}
 

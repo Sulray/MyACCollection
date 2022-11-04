@@ -53,11 +53,9 @@ class CardController extends AbstractController
             throw $this->createNotFoundException('The card does not exist');
         }
 
-        $res = '<p>'.$card->getName()." (".$card->getid().")";
-
-        $res .= '</p><a href="' . $this->generateUrl('card_index') . '">Back</a>';
-
-        return new Response('<html><body>'. $res . '</body></html>');
+        return $this->render('card/show.html.twig',
+            [ 'card' => $card ]
+        );
     }
 
 }

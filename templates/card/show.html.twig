@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block body %}
+    <h1>{{ card.name }}</h1>
+
+    {% dump card %}
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <th>Card</th>
+            <th>Series</th>
+            <th>Species</th>
+            <th>Village</th>
+
+        </tr>
+        <tr>
+            <td>{{ card.id }}</td>
+            <td>{{ card.name }}</td>
+            <td>{{ card.series }}</td>
+            <td>{{ card.species }}</td>
+            <td><a href="{{  path('village_show',{'id':card.village.id}) }}">{{ card.village }}</a> </td>
+
+        </tr>
+
+
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('card_index') }}">back to list</a>
+
+{% endblock %}
