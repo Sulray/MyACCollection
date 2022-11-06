@@ -1,0 +1,13 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        villages:
+          label: 'Villages'
+          route: 'village_list'
+        cards:
+          label: 'Cards'
+          route: 'card_list'
+        members:
+          label: 'Members'
+          route: 'member_list'

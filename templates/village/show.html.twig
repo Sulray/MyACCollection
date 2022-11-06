@@ -2,12 +2,15 @@
 
 {% block title %}Welcome!{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>{{ village.name }}</h1>
 
     {% dump village %}
 
     <h2> <a href="{{  path('member_show',{'id':village.member.id}) }}"> {{ village.member.name }} </a> </h2>
+
+
+
 
     <table class="table">
         <thead>

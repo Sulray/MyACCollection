@@ -2,7 +2,7 @@
 <ul>
     {% for card in field.value %}
     {%- set url = ea_url()
-        .setController('App\\Controller\\Admin\\[Object]CrudController')
+        .setController('App\\Controller\\Admin\\CardCrudController')
         .setAction('detail')
         .setEntityId(card.id)
     -%}
