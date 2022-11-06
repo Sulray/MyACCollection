@@ -37,7 +37,7 @@ class VillageCrudController extends AbstractCrudController
         yield AssociationField::new('cards')
             ->autocomplete()
             ->setFormTypeOption('by_reference', false)
-            ->setTemplatePath('admin/fields/inventaire_cards.html.twig');
+            ->setTemplatePath('admin/fields/village_cards.html.twig');
     }
 
 }

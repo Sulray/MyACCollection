@@ -1,0 +1,20 @@
+{# source: https://stackoverflow.com/a/65082524/1814910 #}
+<ul>
+    {% for village in field.value %}
+    {%- set url = ea_url()
+        .setController('App\\Controller\\Admin\\VillageCrudController')
+        .setAction('detail')
+        .setEntityId(village.id)
+    -%}
+    <li>
+        <a href="{{ url }}">
+            {{ village }}
+        </a>
+    </li>
+    {% else %}
+</ul>
+<span class="badge badge-secondary">None</span>
+<ul>
+    {% endfor %}
+</ul>
+
