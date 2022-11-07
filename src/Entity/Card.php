@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CardRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CardRepository::class)]
@@ -24,6 +26,18 @@ class Card
 
     #[ORM\ManyToOne(inversedBy: 'cards')]
     private ?Village $village = null;
+
+    #[ORM\ManyToMany(targetEntity: Personality::class, inversedBy: 'cards')]
+    private Collection $personalities;
+
+    #[ORM\ManyToMany(targetEntity: Gallery::class, mappedBy: 'cards')]
+    private Collection $galleries;
+
+    public function __construct()
+    {
+        $this->personalities = new ArrayCollection();
+        $this->galleries = new ArrayCollection();
+    }
 
 
     public function __toString() {
@@ -80,6 +94,57 @@ class Card
     public function setVillage(?Village $village): self
     {
         $this->village = $village;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Personality>
+     */
+    public function getPersonalities(): Collection
+    {
+        return $this->personalities;
+    }
+
+    public function addPersonality(Personality $personality): self
+    {
+        if (!$this->personalities->contains($personality)) {
+            $this->personalities->add($personality);
+        }
+
+        return $this;
+    }
+
+    public function removePersonality(Personality $personality): self
+    {
+        $this->personalities->removeElement($personality);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Gallery>
+     */
+    public function getGalleries(): Collection
+    {
+        return $this->galleries;
+    }
+
+    public function addGallery(Gallery $gallery): self
+    {
+        if (!$this->galleries->contains($gallery)) {
+            $this->galleries->add($gallery);
+            $gallery->addCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGallery(Gallery $gallery): self
+    {
+        if ($this->galleries->removeElement($gallery)) {
+            $gallery->removeCard($this);
+        }
 
         return $this;
     }

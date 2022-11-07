@@ -24,9 +24,13 @@ class Member
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Village::class, cascade: ["persist"])]
     private Collection $villages;
 
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Gallery::class)]
+    private Collection $galleries;
+
     public function __construct()
     {
         $this->villages = new ArrayCollection();
+        $this->galleries = new ArrayCollection();
     }
 
     public function __toString() {
@@ -86,6 +90,36 @@ class Member
             // set the owning side to null (unless already changed)
             if ($village->getMember() === $this) {
                 $village->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Gallery>
+     */
+    public function getGalleries(): Collection
+    {
+        return $this->galleries;
+    }
+
+    public function addGallery(Gallery $gallery): self
+    {
+        if (!$this->galleries->contains($gallery)) {
+            $this->galleries->add($gallery);
+            $gallery->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGallery(Gallery $gallery): self
+    {
+        if ($this->galleries->removeElement($gallery)) {
+            // set the owning side to null (unless already changed)
+            if ($gallery->getMember() === $this) {
+                $gallery->setMember(null);
             }
         }
 
