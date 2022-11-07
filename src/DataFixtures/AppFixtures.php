@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Card;
+use App\Entity\Gallery;
 use App\Entity\Member;
 use App\Entity\Personality;
 use App\Repository\CardRepository;
@@ -41,6 +42,7 @@ class AppFixtures extends Fixture
     }
 
 
+
     private static function villagesDataGenerator()
     {
         yield ["Village of Martin","Martin"];
@@ -59,18 +61,27 @@ class AppFixtures extends Fixture
         yield ["Becky"];
     }
 
+    private static function galleriesDataGenerator()
+    {
+        yield ["Exposition of my favorite characters",true,["Tia"],"Martin"];
+        yield ["Exposition of my favorite characters",true,["Leonardo"],"Sarah"];
+        yield ["Exposition of my favorite characters",true,["Curt","Tucker"],"Filip"];
+        yield ["Exposition of my favorite characters",true,["Rocco"],"Arthur"];
+        yield ["Exposition of my favorite characters",true,["Marlo"],"Becky"];
+    }
+
     private static function cardsDataGenerator()
     {
         yield ["Village of Martin","Tia", 2, "Elephant",["Female","Normal"]];
         yield ["Village of Martin","Harry", 2, "Hippo",["Male","Cranky"]];
-        yield ["Village of Martin","Leonardo", 1, "Tiger",["Male","Jock"]];
-        yield ["Village of Sarah","Curt", 1, "Bear",["Male","Cranky"]];
-        yield ["Village of Sarah","Wolfgang", 3, "Wolf",["Male","Cranky"]];
-        yield ["Village of Sarah","Tucker", 3, "Elephant",["Male","Lazy"]];
-        yield ["Village of Sarah","Rocco", 4, "Hippo",["Male","Cranky"]];
-        yield ["Village of Sarah","Pierce", 4, "Eagle",["Male","Jock"]];
-        yield ["Village of Filip","Raymond", 5, "Cat",["Male","Smug"]];
-        yield ["Village of Filip","Marlo", 5, "Hamster",["Male","Cranky"]];
+        yield ["Village of Sarah","Leonardo", 1, "Tiger",["Male","Jock"]];
+        yield ["Village of Filip","Curt", 1, "Bear",["Male","Cranky"]];
+        yield ["Village of Filip","Wolfgang", 3, "Wolf",["Male","Cranky"]];
+        yield ["Village of Filip","Tucker", 3, "Elephant",["Male","Lazy"]];
+        yield ["Village of Arthur","Rocco", 4, "Hippo",["Male","Cranky"]];
+        yield ["Village of Arthur","Pierce", 4, "Eagle",["Male","Jock"]];
+        yield ["Village of Becky","Raymond", 5, "Cat",["Male","Smug"]];
+        yield ["Village of Becky","Marlo", 5, "Hamster",["Male","Cranky"]];
 
     }
 
@@ -79,6 +90,7 @@ class AppFixtures extends Fixture
         $memberRepo = $manager->getRepository(Member::class);
         $villageRepo = $manager->getRepository(Village::class);
         $personalityRepo = $manager->getRepository(Personality::class);
+        $cardRepo = $manager->getRepository(Card::class);
 
 
         foreach (self::personalitiesDataGenerator() as [$name,$parentName] ) {
@@ -112,7 +124,6 @@ class AppFixtures extends Fixture
         $manager->flush();
 
 
-
         foreach (self::cardsDataGenerator() as [$villageName,$name, $series, $species, $personalities] ) {
             $village = $villageRepo->findOneBy(['name' => $villageName]);
             $card = new Card();
@@ -120,6 +131,8 @@ class AppFixtures extends Fixture
             $card->setSeries($series);
             $card->setSpecies($species);
             $village->addCard($card);
+            $manager->persist($village);
+
             foreach ($personalities as $personalityName) {
                 $personality = $personalityRepo->findOneBy(['name'=>$personalityName]);
                 $personality->addCard($card);
@@ -127,7 +140,27 @@ class AppFixtures extends Fixture
                 $manager->persist($personality);
                 $manager->persist($card);
             }
-            $manager->persist($village);
+
+        }
+        $manager->flush();
+
+
+
+        foreach (self::galleriesDataGenerator() as [$description,$published,$cards,$memberName] ) {
+            $member = $memberRepo->findOneBy(['name' => $memberName]);
+            $gallery = new Gallery();
+            $gallery->setDescription($description);
+            $gallery->setPublished($published);
+            $gallery->setMember($member);
+
+            foreach ($cards as $cardName) {
+                $card = $cardRepo->findOneBy(['name'=>$cardName]);
+                $card->addGallery($gallery);
+                $gallery->addCard($card);
+                $manager->persist($card);
+                $manager->persist($gallery);
+            }
+
         }
         $manager->flush();
 
