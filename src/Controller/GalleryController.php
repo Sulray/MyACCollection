@@ -26,14 +26,14 @@ class GalleryController extends AbstractController
      * @Route("/gallery-index", name = "gallery_index", methods="GET")
 
      */
-    public function listGalleryy(ManagerRegistry $doctrine): Response
+    public function listGallery(ManagerRegistry $doctrine): Response
     {
         $entityManager= $doctrine->getManager();
         $galleries = $entityManager->getRepository(Gallery::class)->findAll();
 
         dump($galleries);
 
-        return $this->render('galleryy/index.html.twig',
+        return $this->render('gallery/index.html.twig',
             [ 'galleries' => $galleries ]
         );
     }
