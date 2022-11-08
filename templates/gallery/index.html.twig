@@ -3,25 +3,23 @@
 {% block title %}Welcome!{% endblock %}
 
 {% block main %}
-    <h1>Cards index</h1>
+    <h1>Gallery index</h1>
 
     <table class="table">
         <thead>
         <tr>
             <th>Id</th>
-            <th>Card</th>
-
-
+            <th>Gallery</th>
         </tr>
         </thead>
         <tbody>
 
-        {% for card in cards %}
+        {% for gallery in galleries %}
             <tr>
-                <td>{{ card.id }}</td>
-                <td><a href="{{  path('card_show',{'id':card.id}) }}">{{ card.name }}</a> </td>
+                <td>{{ gallery.id }}</td>
+                <td><a href="{{  path('gallery_show',{'id':gallery.id}) }}">{{ gallery.name }}</a> </td>
             </tr>
-        {% endfor %} {# cards #}
+        {% endfor %} {# galleries #}
 
         </tbody>
     </table>

@@ -5,6 +5,9 @@ bootstrap_menu:
         villages:
           label: 'Villages'
           route: 'village_list'
+        galleries:
+          label: 'Galleries'
+          route: 'gallery_list'
         cards:
           label: 'Cards'
           route: 'card_list'

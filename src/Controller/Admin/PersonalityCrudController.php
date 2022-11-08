@@ -2,21 +2,20 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Card;
+use App\Entity\Personality;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class CardCrudController extends AbstractCrudController
+class PersonalityCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Card::class;
+        return Personality::class;
     }
 
     public function configureActions(Actions $actions): Actions
@@ -27,24 +26,19 @@ class CardCrudController extends AbstractCrudController
             ;
     }
 
+
     public function configureFields(string $pageName): iterable
     {
         yield IdField::new('id')
             ->hideOnForm();
         yield TextField::new('name');
-        yield IdField::new('species');
-        yield IdField::new('series');
-        #yield TextEditorField::new('description');
-        yield AssociationField::new('village')
-            ->hideOnForm();
-        //    ->autocomplete()
-        //    ->setFormTypeOption('by_reference', false);
-        yield AssociationField::new('personalities') // remplacer par le nom de l'attribut spécifique, par exemple 'bodyShape'
-            ->onlyOnDetail()
-            ->formatValue(function ($value, $entity) {
-                return implode(', ', $entity->getPersonalities()->toArray()); // ici getBodyShapes()
-            });
+        yield TextField::new('parent');
 
+        #yield TextEditorField::new('description');
+        yield AssociationField::new('cards')
+            ->autocomplete()
+            ->setFormTypeOption('by_reference', false)
+            ->setTemplatePath('admin/fields/personality_cards.html.twig');
     }
 
 }

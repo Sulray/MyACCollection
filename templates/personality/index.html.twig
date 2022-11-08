@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block main %}
+    <h1>Personality index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Personality</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for personality in personalities %}
+            <tr>
+                <td>{{ personality.id }}</td>
+                <td><a href="{{  path('personality_show',{'id':personality.id}) }}">{{ personality.name }}</a> </td>
+            </tr>
+        {% endfor %} {# personalities #}
+
+        </tbody>
+    </table>
+
+
+{% endblock %} {# main #}
