@@ -8,23 +8,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/member')]
 class MemberController extends AbstractController
 {
-    #[Route('/member', name: 'app_member')]
-    public function index(): Response
-    {
-        return $this->render('member/index.html.twig', [
-            'controller_name' => 'MemberController',
-        ]);
-    }
-
     /**
      * Lists all member entities
      *
-     * @Route("/member_list", name = "member_list", methods="GET")
-     * @Route("/member_index", name="member_index", methods="GET")
+     * @Route("/list", name = "member_list", methods="GET")
+     * @Route("/", name="member_index", methods="GET")
      */
-    public function listMembers(ManagerRegistry $doctrine)
+    public function index(ManagerRegistry $doctrine)
     {
         $entityManager= $doctrine->getManager();
         $members = $entityManager->getRepository(Member::class)->findAll();
@@ -39,7 +32,7 @@ class MemberController extends AbstractController
     /**
      * Show a member
      *
-     * @Route("/member/{id}", name="member_show", requirements={"id"="\d+"})
+     * @Route("/{id}", name="member_show", requirements={"id"="\d+"})
      *    note that the id must be an integer, above
      *
      * @param Integer $id

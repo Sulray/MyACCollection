@@ -1,28 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome!{% endblock %}
+{% block title %}Gallery index{% endblock %}
 
 {% block main %}
     <h1>Gallery index</h1>
 
     <table class="table">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Gallery</th>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Published</th>
+                <th>actions</th>
+            </tr>
         </thead>
         <tbody>
-
         {% for gallery in galleries %}
             <tr>
                 <td>{{ gallery.id }}</td>
-                <td><a href="{{  path('gallery_show',{'id':gallery.id}) }}">{{ gallery.description }}</a> </td>
+                <td>{{ gallery.description }}</td>
+                <td>{{ gallery.published ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_gallery_show', {'id': gallery.id}) }}">show</a>
+                    <a href="{{ path('app_gallery_edit', {'id': gallery.id}) }}">edit</a>
+                </td>
             </tr>
-        {% endfor %} {# galleries #}
-
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 
-
-{% endblock %} {# main #}
+    <a href="{{ path('app_gallery_new') }}">Create new</a>
+{% endblock %}

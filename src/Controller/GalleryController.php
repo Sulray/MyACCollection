@@ -3,62 +3,76 @@
 namespace App\Controller;
 
 use App\Entity\Gallery;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Form\GalleryType;
+use App\Repository\GalleryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/gallery')]
 class GalleryController extends AbstractController
 {
-
-    #[Route('/personality', name: 'app_gallery')]
-    public function index(): Response
+    #[Route('/', name: 'app_gallery_index', methods: ['GET'])]
+    public function index(GalleryRepository $galleryRepository): Response
     {
         return $this->render('gallery/index.html.twig', [
-            'controller_name' => 'GalleryController',
+            'galleries' => $galleryRepository->findAll(),
         ]);
     }
 
-    /**
-     * Lists all gallery entities.
-     *
-     * @Route("/gallery-list", name = "gallery_list", methods="GET")
-     * @Route("/gallery-index", name = "gallery_index", methods="GET")
-
-     */
-    public function listGallery(ManagerRegistry $doctrine): Response
+    #[Route('/new', name: 'app_gallery_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, GalleryRepository $galleryRepository): Response
     {
-        $entityManager= $doctrine->getManager();
-        $galleries = $entityManager->getRepository(Gallery::class)->findAll();
+        $gallery = new Gallery();
+        $form = $this->createForm(GalleryType::class, $gallery);
+        $form->handleRequest($request);
 
-        dump($galleries);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $galleryRepository->add($gallery, true);
 
-        return $this->render('gallery/index.html.twig',
-            [ 'galleries' => $galleries ]
-        );
-    }
-
-    /**
-     * Show a gallery
-     *
-     * @Route("/gallery/{id}", name="gallery_show", requirements={"id"="\d+"})
-     *    note that the id must be an integer, above
-     *
-     * @param Integer $id
-     */
-    public function showGallery(ManagerRegistry $doctrine, $id)
-    {
-        $galleryRepo = $doctrine->getRepository(Gallery::class);
-        $gallery = $galleryRepo->find($id);
-
-        if (!$gallery) {
-            throw $this->createNotFoundException('The gallery does not exist');
+            return $this->redirectToRoute('app_gallery_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('gallery/show.html.twig',
-            [ 'gallery' => $gallery ]
-        );
-
+        return $this->renderForm('gallery/new.html.twig', [
+            'gallery' => $gallery,
+            'form' => $form,
+        ]);
     }
 
+    #[Route('/{id}', name: 'app_gallery_show', methods: ['GET'])]
+    public function show(Gallery $gallery): Response
+    {
+        return $this->render('gallery/show.html.twig', [
+            'gallery' => $gallery,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_gallery_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Gallery $gallery, GalleryRepository $galleryRepository): Response
+    {
+        $form = $this->createForm(GalleryType::class, $gallery);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $galleryRepository->add($gallery, true);
+
+            return $this->redirectToRoute('app_gallery_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('gallery/edit.html.twig', [
+            'gallery' => $gallery,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_gallery_delete', methods: ['POST'])]
+    public function delete(Request $request, Gallery $gallery, GalleryRepository $galleryRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$gallery->getId(), $request->request->get('_token'))) {
+            $galleryRepository->remove($gallery, true);
+        }
+
+        return $this->redirectToRoute('app_gallery_index', [], Response::HTTP_SEE_OTHER);
+    }
 }

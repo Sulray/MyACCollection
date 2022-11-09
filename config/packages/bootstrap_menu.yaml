@@ -4,13 +4,13 @@ bootstrap_menu:
       items:
         villages:
           label: 'Villages'
-          route: 'village_list'
+          route: 'village_index'
         galleries:
           label: 'Galleries'
-          route: 'gallery_list'
+          route: 'app_gallery_index'
         cards:
           label: 'Cards'
-          route: 'card_list'
+          route: 'card_index'
         members:
           label: 'Members'
-          route: 'member_list'
+          route: 'member_index'

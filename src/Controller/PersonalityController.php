@@ -9,26 +9,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-
+#[Route('/personnality')]
 class PersonalityController extends AbstractController
 {
-
-    #[Route('/personality', name: 'app_village')]
-    public function index(): Response
-    {
-        return $this->render('personality/index.html.twig', [
-            'controller_name' => 'PersonalityController',
-        ]);
-    }
 
     /**
      * Lists all personality entities.
      *
-     * @Route("/personality-list", name = "personality_list", methods="GET")
-     * @Route("/personality-index", name = "personality_index", methods="GET")
+     * @Route("/list", name = "personality_list", methods="GET")
+     * @Route("/", name = "personality_index", methods="GET")
 
      */
-    public function listPersonality(ManagerRegistry $doctrine): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
         $entityManager= $doctrine->getManager();
         $personalities = $entityManager->getRepository(Personality::class)->findAll();
@@ -43,12 +35,12 @@ class PersonalityController extends AbstractController
     /**
      * Show a personality
      *
-     * @Route("/personality/{id}", name="personality_show", requirements={"id"="\d+"})
+     * @Route("/{id}", name="personality_show", requirements={"id"="\d+"})
      *    note that the id must be an integer, above
      *
      * @param Integer $id
      */
-    public function showPersonality(ManagerRegistry $doctrine, $id)
+    public function show(ManagerRegistry $doctrine, $id)
     {
         $personalityRepo = $doctrine->getRepository(Personality::class);
         $personality = $personalityRepo->find($id);

@@ -8,23 +8,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/card')]
 class CardController extends AbstractController
 {
-    #[Route('/card', name: 'app_card')]
-    public function index(): Response
-    {
-        return $this->render('card/index.html.twig', [
-            'controller_name' => 'CardController',
-        ]);
-    }
 
     /**
      * Lists all card entities
      *
-     * @Route("/card_list", name = "card_list", methods="GET")
-     * @Route("/card_index", name="card_index", methods="GET")
+     * @Route("/list", name = "card_list", methods="GET")
+     * @Route("/", name="card_index", methods="GET")
      */
-    public function listCards(ManagerRegistry $doctrine)
+    public function index(ManagerRegistry $doctrine)
     {
         $entityManager= $doctrine->getManager();
         $cards = $entityManager->getRepository(Card::class)->findAll();
@@ -39,7 +33,7 @@ class CardController extends AbstractController
     /**
      * Show a card
      *
-     * @Route("/card/{id}", name="card_show", requirements={"id"="\d+"})
+     * @Route("/{id}", name="card_show", requirements={"id"="\d+"})
      *    note that the id must be an integer, above
      *
      * @param Integer $id

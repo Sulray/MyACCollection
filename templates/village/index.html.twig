@@ -18,11 +18,15 @@
         <tr>
             <td>{{ village.id }}</td>
             <td><a href="{{  path('village_show',{'id':village.id}) }}">{{ village.name }}</a> </td>
+            <td>
+                <a href="{{ path('village_edit', {'id': village.id}) }}">edit</a>
+            </td>
         </tr>
         {% endfor %} {# villages #}
 
         </tbody>
     </table>
 
+    <a href="{{ path('village_new') }}">Create new</a>
 
 {% endblock %} {# main #}
