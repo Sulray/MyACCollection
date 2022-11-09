@@ -39,6 +39,9 @@ class VillageRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
 
+        dump($entity);
+        dump($flush);
+
         if ($flush) {
             $this->getEntityManager()->flush();
         }

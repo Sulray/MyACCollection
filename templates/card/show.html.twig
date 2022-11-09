@@ -16,7 +16,6 @@
             <th>Species</th>
             <th>Village</th>
             <th> Personality </th>
-            <th>  </th>
 
         </tr>
         <tr>
@@ -24,10 +23,8 @@
             <td>{{ card.name }}</td>
             <td>{{ card.series }}</td>
             <td>{{ card.species }}</td>
-            <td><a href="{{  path('village_show',{'id':card.village.id}) }}">{{ card.village }}</a> </td>
-            {% for personality in card.personalities %}
-                <td><a href="{{  path('personality_show',{'id':personality.id}) }}">{{ personality.name }}</a> </td>
-            {% endfor %}
+            <td><a href="{{  path('app_village_show',{'id':card.village.id}) }}">{{ card.village }}</a> </td>
+            <td>{{ card.personalities|join(', ') }}</td>
         </tr>
 
 

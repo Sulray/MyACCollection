@@ -19,7 +19,7 @@
         {% for village in member.villages %}
             <tr>
                 <td>{{ village.id }}</td>
-                <td><a href="{{  path('village_show',{'id':village.id}) }}">{{ village.name }}</a> </td>
+                <td><a href="{{  path('app_village_show',{'id':village.id}) }}">{{ village.name }}</a> </td>
             </tr>
         {% endfor %} {# villages #}
 

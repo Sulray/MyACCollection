@@ -25,11 +25,14 @@ class GalleryController extends AbstractController
     public function new(Request $request, GalleryRepository $galleryRepository): Response
     {
         $gallery = new Gallery();
-        $form = $this->createForm(GalleryType::class, $gallery);
+        $form = $this->createForm(GalleryType::class, $gallery,
+            ['task_is_new'=>true]
+            );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $galleryRepository->add($gallery, true);
+
 
             return $this->redirectToRoute('app_gallery_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -56,6 +59,12 @@ class GalleryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $galleryRepository->add($gallery, true);
+
+            // Make sure message will be displayed after redirect
+            $this->addFlash('message', 'Gallery edited');
+            // $this->addFlash() is equivalent to $request->getSession()->getFlashBag()->add()
+            // or to $this->get('session')->getFlashBag()->add();
+
 
             return $this->redirectToRoute('app_gallery_index', [], Response::HTTP_SEE_OTHER);
         }

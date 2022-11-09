@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Village;
-use phpDocumentor\Reflection\Types\Collection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,8 +13,8 @@ class VillageType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('cards')
             ->add('member')
+            ->add('cards')
         ;
     }
 

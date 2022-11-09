@@ -4,7 +4,7 @@ bootstrap_menu:
       items:
         villages:
           label: 'Villages'
-          route: 'village_index'
+          route: 'app_village_index'
         galleries:
           label: 'Galleries'
           route: 'app_gallery_index'

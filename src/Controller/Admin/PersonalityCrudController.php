@@ -32,7 +32,7 @@ class PersonalityCrudController extends AbstractCrudController
         yield IdField::new('id')
             ->hideOnForm();
         yield TextField::new('name');
-        yield TextField::new('parent');
+        yield TextField::new('parent'); #transformer en association field pour que ça marche
 
         #yield TextEditorField::new('description');
         yield AssociationField::new('cards')

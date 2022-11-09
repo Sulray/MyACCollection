@@ -1,41 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome!{% endblock %}
+{% block title %}Village{% endblock %}
 
 {% block main %}
-    <h1>{{ village.name }}</h1>
-
-    {% dump village %}
-
-    <h2> <a href="{{  path('member_show',{'id':village.member.id}) }}"> {{ village.member.name }} </a> </h2>
-
-
-
+    <h1>Village</h1>
 
     <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Card</th>
-        </tr>
-        </thead>
         <tbody>
-
-        {% for card in village.cards %}
             <tr>
-                <td>{{ card.id }}</td>
-                <td><a href="{{  path('card_show',{'id':card.id}) }}">{{ card.name }}</a> </td>
+                <th>Id</th>
+                <td>{{ village.id }}</td>
             </tr>
-        {% endfor %} {# cards #}
-
+            <tr>
+                <th>Name</th>
+                <td>{{ village.name }}</td>
+            </tr>
+            <tr>
+                <th>Cards</th>
+                {% for card in village.cards %}
+                    <td>{{ card.name }}</td>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('village_index') }}">back to list</a>
+    <a href="{{ path('app_village_index') }}">back to list</a>
 
-    <a href="{{ path('village_edit', {'id': village.id}) }}">edit</a>
+    <a href="{{ path('app_village_edit', {'id': village.id}) }}">edit</a>
 
     {{ include('village/_delete_form.html.twig') }}
-
-
 {% endblock %}
