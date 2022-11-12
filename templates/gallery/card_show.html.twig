@@ -1,0 +1,55 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block main %}
+    <h1>{{ card.name }}</h1>
+
+    {% dump card %}
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ card.id }}</td>
+
+        </tr>
+        <tr>
+            <th>Card</th>
+            <td>{{ card.name }}</td>
+
+        </tr>
+        <tr>
+            <th>Series</th>
+            <td>{{ card.series }}</td>
+
+        </tr>
+        <tr>
+            <th>Species</th>
+            <td>{{ card.species }}</td>
+
+        </tr>
+        <tr>
+            <th>Village</th>
+            <td><a href="{{  path('app_village_show',{'id':card.village.id}) }}">{{ card.village }}</a> </td>
+
+        </tr>
+        <tr>
+            <th> Personality </th>
+            <td>{{ card.personalities|join(', ') }}</td>
+
+        </tr>
+
+
+
+
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_gallery_show', { 'id': gallery.id}) }}">back to gallery</a>
+
+
+{% endblock %}

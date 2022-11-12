@@ -19,7 +19,7 @@
         {% for card in personality.cards %}
             <tr>
                 <td>{{ card.id }}</td>
-                <td><a href="{{  path('card_show',{'id':card.id}) }}">{{ card.name }}</a> </td>
+                <td><a href="{{  path('app_card_show',{'id':card.id}) }}">{{ card.name }}</a> </td>
             </tr>
         {% endfor %} {# cards #}
 

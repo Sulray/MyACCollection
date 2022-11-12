@@ -32,6 +32,16 @@
         </tbody>
     </table>
 
+
+    <h2>Cards</h2>
+    <ul>
+        {% for card in gallery.cards %}
+            <li>
+                <a href="{{ path('app_gallery_card_show', {'gallery_id': gallery.id, 'card_id' : card.id}) }}">{{ card }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
     <a href="{{ path('app_gallery_index') }}">back to list</a>
 
     <a href="{{ path('app_gallery_edit', {'id': gallery.id}) }}">edit</a>

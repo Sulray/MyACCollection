@@ -2,25 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\Village;
+use App\Entity\Card;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VillageType extends AbstractType
+class CardType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name')
-            ->add('member')
+            ->add('series')
+            ->add('species')
+            ->add('village')
+            ->add('personalities')
+            //->add('galleries') #marche pas
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Village::class,
+            'data_class' => Card::class,
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Card;
 use App\Entity\Gallery;
 use App\Form\GalleryType;
 use App\Repository\GalleryRepository;
@@ -9,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 #[Route('/gallery')]
 class GalleryController extends AbstractController
@@ -84,4 +86,29 @@ class GalleryController extends AbstractController
 
         return $this->redirectToRoute('app_gallery_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    /**
+     * @Route("/{gallery_id}/card/{card_id}", name="app_gallery_card_show", methods={"GET"})
+     * @ParamConverter("gallery", options={"id" = "gallery_id"})
+     * @ParamConverter("card", options={"id" = "card_id"})
+     */
+    public function cardShow(Gallery $gallery, Card $card): Response
+    {
+        if(! $gallery->getCards()->contains($card)) {
+            throw $this->createNotFoundException("Couldn't find such a card in this gallery !");
+        }
+
+        if(! $gallery->isPublished()) {
+            throw $this->createAccessDeniedException("You cannot access the requested ressource!");
+        }
+
+
+        return $this->render('gallery/card_show.html.twig', [
+            'card' => $card,
+            'gallery' => $gallery
+        ]);
+    }
+
+
 }

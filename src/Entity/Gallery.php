@@ -31,6 +31,9 @@ class Gallery
     {
         $this->cards = new ArrayCollection();
     }
+    public function __toString() {
+        return $this->description . " (" . $this->id . ")";
+    }
 
     public function getId(): ?int
     {

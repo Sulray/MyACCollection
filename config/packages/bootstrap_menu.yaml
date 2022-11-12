@@ -10,7 +10,7 @@ bootstrap_menu:
           route: 'app_gallery_index'
         cards:
           label: 'Cards'
-          route: 'card_index'
+          route: 'app_card_index'
         members:
           label: 'Members'
           route: 'member_index'
