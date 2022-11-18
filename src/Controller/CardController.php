@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Card;
+use App\Entity\Village;
 use App\Form\CardType;
 use App\Repository\CardRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,10 +22,11 @@ class CardController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_card_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CardRepository $cardRepository): Response
+    #[Route('/new/{id}', name: 'app_card_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, CardRepository $cardRepository, Village $village): Response
     {
         $card = new Card();
+        $card->setVillage($village);
         $form = $this->createForm(CardType::class, $card);
         $form->handleRequest($request);
 

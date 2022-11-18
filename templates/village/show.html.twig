@@ -17,14 +17,23 @@
             </tr>
             <tr>
                 <th>Cards</th>
-                <td>{{ village.cards|join(', ') }}</td>
+                <td>
+                    {% for card in village.cards %}
+                        <li><a href="{{ path('app_card_show', {'id' : card.id}) }}">{{ card }}</a></li>
+                    {% endfor %}
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <li><a href="{{ path('app_village_index') }}">back to list</a></li>
+    <a class="btn btn-primary" href="{{ path('app_village_edit', {'id': village.id}) }}">edit</a>
 
-    <li> <a href="{{ path('app_village_edit', {'id': village.id}) }}">edit</a></li>
+    <a class="btn btn-primary" href="{{ path('app_card_new', {'id': village.id}) }}"> add new card </a>
+
+    <a class="btn btn-primary" href="{{ path('app_village_index') }}">back to list</a>
+
+    <br>
+    <br>
 
     {{ include('village/_delete_form.html.twig') }}
 {% endblock %}

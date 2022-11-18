@@ -1,28 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome!{% endblock %}
+{% block title %}Member index{% endblock %}
 
 {% block main %}
     <h1>Member index</h1>
 
     <table class="table">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Member</th>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
         </thead>
         <tbody>
-
         {% for member in members %}
             <tr>
                 <td>{{ member.id }}</td>
-                <td><a href="{{  path('member_show',{'id':member.id}) }}">{{ member.name }}</a> </td>
+                <td>{{ member.name }}</td>
+                <td>{{ member.description }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('app_member_show', {'id': member.id}) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('app_member_edit', {'id': member.id}) }}">edit</a>
+                </td>
             </tr>
-        {% endfor %} {# members #}
-
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 
-
-{% endblock %} {# main #}
+    <a class="btn btn-primary" href="{{ path('app_member_new') }}">Create new</a>
+{% endblock %}

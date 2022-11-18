@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Member;
 use App\Entity\Village;
 use App\Form\VillageType;
 use App\Repository\VillageRepository;
@@ -32,10 +33,14 @@ class VillageController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_village_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, VillageRepository $villageRepository): Response
+
+    /**
+     * @Route("/new/{id}", name="app_village_new", methods={"GET", "POST"})
+     */
+    public function new(Request $request, VillageRepository $villageRepository, Member $member): Response
     {
         $village = new Village();
+        $village->setMember($member);
         $form = $this->createForm(VillageType::class, $village);
         $form->handleRequest($request);
 

@@ -23,8 +23,8 @@
                 <td>{{ card.series }}</td>
                 <td>{{ card.species }}</td>
                 <td>
-                    <a href="{{ path('app_card_show', {'id': card.id}) }}">show</a>
-                    <a href="{{ path('app_card_edit', {'id': card.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_card_show', {'id': card.id}) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('app_card_edit', {'id': card.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_card_new') }}">Create new</a>
 {% endblock %}

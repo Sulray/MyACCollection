@@ -13,4 +13,4 @@ bootstrap_menu:
           route: 'app_card_index'
         members:
           label: 'Members'
-          route: 'member_index'
+          route: 'app_member_index'

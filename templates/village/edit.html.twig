@@ -7,9 +7,7 @@
 
     {{ include('village/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <li> <a href="{{ path('app_card_new') }}"> new card </a></li>
-
-    <li><a href="{{ path('app_village_index') }}">back to list</a></li>
+    <a class="btn btn-primary" href="{{ path('app_village_index') }}">back to list</a>
 
     {{ include('village/_delete_form.html.twig') }}
 {% endblock %}

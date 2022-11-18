@@ -13,7 +13,9 @@ class VillageType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('member')
+            ->add('member', null, [
+                'disabled'   => true,
+            ])
         ;
     }
 

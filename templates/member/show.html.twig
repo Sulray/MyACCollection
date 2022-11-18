@@ -1,31 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome!{% endblock %}
+{% block title %}Member{% endblock %}
 
 {% block main %}
-    <h1>{{ member.name }}</h1>
-
-    {% dump member %}
+    <h1>Member</h1>
 
     <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Village</th>
-        </tr>
-        </thead>
         <tbody>
-
-        {% for village in member.villages %}
             <tr>
-                <td>{{ village.id }}</td>
-                <td><a href="{{  path('app_village_show',{'id':village.id}) }}">{{ village.name }}</a> </td>
+                <th>Id</th>
+                <td>{{ member.id }}</td>
             </tr>
-        {% endfor %} {# villages #}
-
+            <tr>
+                <th>Name</th>
+                <td>{{ member.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ member.description }}</td>
+            </tr>
+            <tr>
+                <th>Villages</th>
+                <td>
+                    {% for village in member.villages %}
+                        <li><a href="{{ path('app_village_show', {'id' : village.id}) }}">{{ village }}</a></li>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Galleries</th>
+                <td>
+                    {% for gallery in member.galleries %}
+                        <li><a href="{{ path('app_gallery_show', {'id' : gallery.id}) }}">{{ gallery }}</a></li>
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('member_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('app_member_edit', {'id': member.id}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('app_village_new', {'id': member.id}) }}">add new village</a>
+    <a class="btn btn-primary" href="{{ path('app_gallery_new', {'id': member.id}) }}">add new gallery</a>
 
+    <a class="btn btn-primary" href="{{ path('app_member_index') }}">back to list</a>
+    <br>
+    <br>
+
+    {{ include('member/_delete_form.html.twig') }}
 {% endblock %}

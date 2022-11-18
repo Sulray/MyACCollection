@@ -23,12 +23,6 @@
                 <th>Published</th>
                 <td>{{ gallery.published ? 'Yes' : 'No' }}</td>
             </tr>
-            <tr>
-                <th>Cards</th>
-                {% for card in gallery.cards %}
-                <td>{{ card.name }}</td>
-                {% endfor %}
-            </tr>
         </tbody>
     </table>
 
@@ -42,9 +36,9 @@
         {% endfor %}
     </ul>
 
-    <a href="{{ path('app_gallery_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('app_gallery_index') }}">back to list</a>
 
-    <a href="{{ path('app_gallery_edit', {'id': gallery.id}) }}">edit</a>
+    <a class="btn btn-primary" href="{{ path('app_gallery_edit', {'id': gallery.id}) }}">edit</a>
 
     {{ include('gallery/_delete_form.html.twig') }}
 {% endblock %}

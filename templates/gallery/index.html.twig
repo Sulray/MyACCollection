@@ -21,8 +21,8 @@
                 <td>{{ gallery.description }}</td>
                 <td>{{ gallery.published ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_gallery_show', {'id': gallery.id}) }}">show</a>
-                    <a href="{{ path('app_gallery_edit', {'id': gallery.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_gallery_show', {'id': gallery.id}) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('app_gallery_edit', {'id': gallery.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_gallery_new') }}">Create new</a>
 {% endblock %}

@@ -7,7 +7,7 @@
 
     {{ include('gallery/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_gallery_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('app_gallery_index') }}">back to list</a>
 
     {{ include('gallery/_delete_form.html.twig') }}
 {% endblock %}

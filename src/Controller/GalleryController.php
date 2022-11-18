@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Card;
 use App\Entity\Gallery;
+use App\Entity\Member;
 use App\Form\GalleryType;
 use App\Repository\GalleryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,10 +24,11 @@ class GalleryController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_gallery_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, GalleryRepository $galleryRepository): Response
+    #[Route('/new/{id}', name: 'app_gallery_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, GalleryRepository $galleryRepository, Member $member): Response
     {
         $gallery = new Gallery();
+        $gallery->setMember($member);
         $form = $this->createForm(GalleryType::class, $gallery,
             ['task_is_new'=>true]
             );
