@@ -20,7 +20,10 @@
                 <td>{{ village.name }}</td>
                 <td>
                     <a class="btn btn-primary" href="{{ path('app_village_show', {'id': village.id}) }}">show</a>
-                    <a class="btn btn-primary" href="{{ path('app_village_edit', {'id': village.id}) }}">edit</a>
+
+                    {% if is_granted('ROLE_USER') %}
+                        <a class="btn btn-primary" href="{{ path('app_village_edit', {'id': village.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

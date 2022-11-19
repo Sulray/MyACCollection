@@ -16,7 +16,7 @@ class VillageController extends AbstractController
 {
 
 
-     #[Route("/home", name : "home", methods:"GET")]
+     #[Route("/home", name : "app_home", methods:"GET")]
     public function indexHome()
     {
         return $this->render('index.html.twig',
