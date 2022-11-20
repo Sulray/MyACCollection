@@ -76,6 +76,7 @@ class VillageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $villageRepository->add($village, true);
+            $this->addFlash('message', 'Village edited');
 
             dump("Following debug is cards after form");
             dump($village->getCards());

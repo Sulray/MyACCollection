@@ -28,11 +28,19 @@
                     {%if type == 'message'%} {% set type = 'info' %} {%endif%}
                     {# Bootstrap alert, see http://getbootstrap.com/components/#alerts #}
                     <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <p>{{ message|raw }}</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>{{ message|raw }}</p>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                            </div>
+
+                        </div>
+
                     </div>
                 {% endfor %}
             {% endfor %}

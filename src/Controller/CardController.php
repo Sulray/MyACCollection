@@ -58,6 +58,7 @@ class CardController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $cardRepository->add($card, true);
+            $this->addFlash('message', 'Card edited');
 
             return $this->redirectToRoute('app_card_index', [], Response::HTTP_SEE_OTHER);
         }
